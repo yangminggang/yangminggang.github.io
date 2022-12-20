@@ -59,5 +59,32 @@
   
   
   
+  <entry>
+    <title>C++概念-类123123123</title>
+    <link href="/2022/07/19/%E8%AE%BE%E7%BD%AE%E4%B8%8A%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%80%BC/C++%E6%A6%82%E5%BF%B5-%E7%B1%BB/"/>
+    <url>/2022/07/19/%E8%AE%BE%E7%BD%AE%E4%B8%8A%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%80%BC/C++%E6%A6%82%E5%BF%B5-%E7%B1%BB/</url>
+    
+    <content type="html"><![CDATA[<h2 id="C-的三大特性"><a href="#C-的三大特性" class="headerlink" title="C++的三大特性"></a>C++的三大特性</h2><h3 id="·封装性"><a href="#·封装性" class="headerlink" title="·封装性"></a>·封装性</h3><p>把客观事物封装成抽象的类，自己类的数据和方法可以设置不同的权限让可信的对象操作，最终以接口的形式来访问类中的数据，数据不直接对外界开放</p><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">a</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>a();<br>~a();<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">show</span>()</span>;<br><span class="hljs-keyword">private</span>:<br><span class="hljs-built_in">int</span> m_a;<br><span class="hljs-keyword">protected</span>:<br><span class="hljs-built_in">int</span> m_b;<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="·继承性"><a href="#·继承性" class="headerlink" title="·继承性"></a>·继承性</h3><p>继承性是在原有的代码基础上进行复用与拓展，这样产生的类是派生类。继承有三种方式，可以根据不同的继承方式对父类的数据进行使用。但是实际上默认的继承方式是私有继承，项目工程中使用的是公有继承，受保护继承和私有继承的复杂程度远大于他实现的价值。</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">class</span> <span class="hljs-symbol">base</span><br>&#123;<br><span class="hljs-keyword">public</span>：<br>base();<br>~base();<br><span class="hljs-built_in">void</span> fun1();<br><span class="hljs-keyword">private</span>:<br><span class="hljs-built_in">int</span> m_a;<br><span class="hljs-keyword">protected</span>:<br><span class="hljs-built_in">int</span> m_b;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-symbol">clild1</span> : <span class="hljs-symbol">public</span> <span class="hljs-symbol">base</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>child1();<br>~chlid1();<br><span class="hljs-built_in">void</span> fun2()<br>&#123;<br>base::fun1();<br>&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure><p>关于子类继承的的关系可以看下图，例如子类继承父类用的是public方式，父类的private类型子类还是不可见的，protected和public子类可见，而且在子类中继承数据的类型也发生了改变。</p><h3 id="·多态性"><a href="#·多态性" class="headerlink" title="·多态性"></a>·多态性</h3><p>C++的多态性可以分为<strong>动态多态性</strong>和<strong>静态多态性</strong></p><ol><li><strong>动态联编</strong>（运行时多态）<br><strong>重写</strong>：同名函数相同参数裂变与返回值，只有函数的实现不同。<br><strong>实现</strong>：存在虚函数的基类，派生类必须对该虚函数进行重写。<br>虚函数的机制后期可以单开一个随笔写出来。</li><li><strong>静态联编</strong>（编译时多态）<br>函数重载：两个函数在相同的作用域，函数名相同，参数列表不同，不关心返回值。（系统会在编译的时候通过函数名与参数列表确认需要用到的具体函数是哪一个，所平常叫做编译时多态）<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">fun1</span>()</span>;<br><span class="hljs-function"><span class="hljs-built_in">float</span> <span class="hljs-title">fun1</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> a</span>)</span>;<br><span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">fun1</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> a, <span class="hljs-built_in">char</span> b</span>)</span>;<br></code></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>C++</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>三大特性</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
   
 </search>
