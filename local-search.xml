@@ -4,81 +4,23 @@
   
   
   <entry>
-    <title>设置上注册表中的值</title>
-    <link href="/2022/07/19/%E8%AE%BE%E7%BD%AE%E4%B8%8A%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%80%BC/"/>
-    <url>/2022/07/19/%E8%AE%BE%E7%BD%AE%E4%B8%8A%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%80%BC/</url>
+    <title>童年</title>
+    <link href="/project/2022/12/21/%E5%9B%9E%E5%BF%86/%E7%AB%A5%E5%B9%B4/"/>
+    <url>/project/2022/12/21/%E5%9B%9E%E5%BF%86/%E7%AB%A5%E5%B9%B4/</url>
     
-    <content type="html"><![CDATA[<h2 id="SHSetValueA"><a href="#SHSetValueA" class="headerlink" title="SHSetValueA"></a>SHSetValueA</h2><h3 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">LSTATUS SHSetValueA(<br><span class="hljs-string">  [in]</span>           HKEY    hkey,<br><span class="hljs-string">  [in, optional]</span> LPCSTR  pszSubKey,<br><span class="hljs-string">  [in, optional]</span> LPCSTR  pszValue,<br><span class="hljs-string">  [in]</span>           DWORD   dwType,<br><span class="hljs-string">  [in, optional]</span> LPCVOID pvData,<br><span class="hljs-string">  [in]</span>           DWORD   cbData<br>);<br></code></pre></td></tr></table></figure><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><h4 id="hkey"><a href="#hkey" class="headerlink" title="hkey"></a>hkey</h4><p>打开秘钥的句柄，就是这里的目录位置</p><img src="/2022/07/19/%E8%AE%BE%E7%BD%AE%E4%B8%8A%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%80%BC/regedit_1.png" class="" title="a"><h4 id="pszSubKey"><a href="#pszSubKey" class="headerlink" title="pszSubKey"></a>pszSubKey</h4><p>以 null 结尾的字符串的地址，它指定与值关联的子键的名称。这可以是NULL或指向空字符串的指针。在这种情况下，该值将添加到由hkey参数标识的键中。（要插入的子健目录，这里说可以串一个空的字符串或者指针，可以自己试一下会插在什么地方）</p><h4 id="pszValue"><a href="#pszValue" class="headerlink" title="pszValue"></a>pszValue</h4><p>指定值的以 null 结尾的字符串的地址。该值可以是NULL。</p><img src="/2022/07/19/%E8%AE%BE%E7%BD%AE%E4%B8%8A%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%80%BC/regedit_2.png" class="" title="b"><h4 id="dwType"><a href="#dwType" class="headerlink" title="dwType"></a>dwType</h4><p>要存储的数据类型。此参数必须是REG_SZ类型。有关详细信息，请参阅<a href="https://docs.microsoft.com/en-us/windows/win32/shell/hkey-type" title="注册表数据类型">注册表数据类型</a>。</p><h4 id="pvData"><a href="#pvData" class="headerlink" title="pvData"></a>pvData</h4><p>指向包含要为指定值设置的数据的缓冲区的指针。该值可以是NULL。</p><h4 id="cbData"><a href="#cbData" class="headerlink" title="cbData"></a>cbData</h4><p>pvData参数指向的缓冲区的长度（以字节为单位） 。如果数据是以空字符结尾的字符串，则此长度包括以空字符结尾的字符。</p><h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>如果成功则返回 ERROR_SUCCESS；否则，Winerror.h 中定义的非零错误代码。您可以使用带有 FORMAT_MESSAGE_FROM_SYSTEM 标志的FormatMessage函数来检索错误的一般描述。</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey"><span class="hljs-title">std::</span>wstring path = 路径<span class="hljs-comment">;</span><br><br>SHSetValue(<br><span class="hljs-built_in">HKEY_LOCAL_MACHINE,</span><br><span class="hljs-title">RegPathDef::</span>TQRUN_REG,<br>L<span class="hljs-string">&quot;键&quot;</span>,<br><span class="hljs-built_in">REG_SZ,</span><br>path.c_str(),<br>(path.length() * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>)<br>)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h2 id="小时候"><a href="#小时候" class="headerlink" title="小时候"></a>小时候</h2><p>我小时候的记忆并不是很清楚，可能是我本来就不是很聪明的人，从小到大也没有什么时候真的显示出聪明的样子，但是就这样的状态活到了现在，二十几岁的年纪，工作长大，做自己不清楚是喜欢还是不喜欢的事情，就这样一直耗着日子。</p><p>现在回想小时候的记忆，可能是不大的时候在叔叔家借宿，也可能是在姨姥家里，更或者单纯的在家里，总之是记不清楚了。那也就只好随便选一个自己记得的时候写下来。</p><p>我记得我很小的时候，在</p>]]></content>
     
     
     <categories>
       
-      <category>windows</category>
+      <category>旧事</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>API</tag>
-      
-      <tag>windows</tag>
-      
-      <tag>registry</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>C++概念-类</title>
-    <link href="/2022/07/19/C++%E6%A6%82%E5%BF%B5-%E7%B1%BB/"/>
-    <url>/2022/07/19/C++%E6%A6%82%E5%BF%B5-%E7%B1%BB/</url>
-    
-    <content type="html"><![CDATA[<h2 id="C-的三大特性"><a href="#C-的三大特性" class="headerlink" title="C++的三大特性"></a>C++的三大特性</h2><h3 id="·封装性"><a href="#·封装性" class="headerlink" title="·封装性"></a>·封装性</h3><p>把客观事物封装成抽象的类，自己类的数据和方法可以设置不同的权限让可信的对象操作，最终以接口的形式来访问类中的数据，数据不直接对外界开放</p><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">a</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>a();<br>~a();<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">show</span>()</span>;<br><span class="hljs-keyword">private</span>:<br><span class="hljs-built_in">int</span> m_a;<br><span class="hljs-keyword">protected</span>:<br><span class="hljs-built_in">int</span> m_b;<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="·继承性"><a href="#·继承性" class="headerlink" title="·继承性"></a>·继承性</h3><p>继承性是在原有的代码基础上进行复用与拓展，这样产生的类是派生类。继承有三种方式，可以根据不同的继承方式对父类的数据进行使用。但是实际上默认的继承方式是私有继承，项目工程中使用的是公有继承，受保护继承和私有继承的复杂程度远大于他实现的价值。</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">class</span> <span class="hljs-symbol">base</span><br>&#123;<br><span class="hljs-keyword">public</span>：<br>base();<br>~base();<br><span class="hljs-built_in">void</span> fun1();<br><span class="hljs-keyword">private</span>:<br><span class="hljs-built_in">int</span> m_a;<br><span class="hljs-keyword">protected</span>:<br><span class="hljs-built_in">int</span> m_b;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-symbol">clild1</span> : <span class="hljs-symbol">public</span> <span class="hljs-symbol">base</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>child1();<br>~chlid1();<br><span class="hljs-built_in">void</span> fun2()<br>&#123;<br>base::fun1();<br>&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure><p>关于子类继承的的关系可以看下图，例如子类继承父类用的是public方式，父类的private类型子类还是不可见的，protected和public子类可见，而且在子类中继承数据的类型也发生了改变。</p><img src="/2022/07/19/C++%E6%A6%82%E5%BF%B5-%E7%B1%BB/pic_1.png" class="" title="This is an example image"><h3 id="·多态性"><a href="#·多态性" class="headerlink" title="·多态性"></a>·多态性</h3><p>C++的多态性可以分为<strong>动态多态性</strong>和<strong>静态多态性</strong></p><ol><li><strong>动态联编</strong>（运行时多态）<br><strong>重写</strong>：同名函数相同参数裂变与返回值，只有函数的实现不同。<br><strong>实现</strong>：存在虚函数的基类，派生类必须对该虚函数进行重写。<br>虚函数的机制后期可以单开一个随笔写出来。</li><li><strong>静态联编</strong>（编译时多态）<br>函数重载：两个函数在相同的作用域，函数名相同，参数列表不同，不关心返回值。（系统会在编译的时候通过函数名与参数列表确认需要用到的具体函数是哪一个，所平常叫做编译时多态）<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">fun1</span>()</span>;<br><span class="hljs-function"><span class="hljs-built_in">float</span> <span class="hljs-title">fun1</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> a</span>)</span>;<br><span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">fun1</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> a, <span class="hljs-built_in">char</span> b</span>)</span>;<br></code></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>C++</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>C++</tag>
-      
-      <tag>三大特性</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>C++概念-类123123123</title>
-    <link href="/2022/07/19/%E8%AE%BE%E7%BD%AE%E4%B8%8A%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%80%BC/C++%E6%A6%82%E5%BF%B5-%E7%B1%BB/"/>
-    <url>/2022/07/19/%E8%AE%BE%E7%BD%AE%E4%B8%8A%E6%B3%A8%E5%86%8C%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%80%BC/C++%E6%A6%82%E5%BF%B5-%E7%B1%BB/</url>
-    
-    <content type="html"><![CDATA[<h2 id="C-的三大特性"><a href="#C-的三大特性" class="headerlink" title="C++的三大特性"></a>C++的三大特性</h2><h3 id="·封装性"><a href="#·封装性" class="headerlink" title="·封装性"></a>·封装性</h3><p>把客观事物封装成抽象的类，自己类的数据和方法可以设置不同的权限让可信的对象操作，最终以接口的形式来访问类中的数据，数据不直接对外界开放</p><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">a</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>a();<br>~a();<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">show</span>()</span>;<br><span class="hljs-keyword">private</span>:<br><span class="hljs-built_in">int</span> m_a;<br><span class="hljs-keyword">protected</span>:<br><span class="hljs-built_in">int</span> m_b;<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="·继承性"><a href="#·继承性" class="headerlink" title="·继承性"></a>·继承性</h3><p>继承性是在原有的代码基础上进行复用与拓展，这样产生的类是派生类。继承有三种方式，可以根据不同的继承方式对父类的数据进行使用。但是实际上默认的继承方式是私有继承，项目工程中使用的是公有继承，受保护继承和私有继承的复杂程度远大于他实现的价值。</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">class</span> <span class="hljs-symbol">base</span><br>&#123;<br><span class="hljs-keyword">public</span>：<br>base();<br>~base();<br><span class="hljs-built_in">void</span> fun1();<br><span class="hljs-keyword">private</span>:<br><span class="hljs-built_in">int</span> m_a;<br><span class="hljs-keyword">protected</span>:<br><span class="hljs-built_in">int</span> m_b;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-symbol">clild1</span> : <span class="hljs-symbol">public</span> <span class="hljs-symbol">base</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>child1();<br>~chlid1();<br><span class="hljs-built_in">void</span> fun2()<br>&#123;<br>base::fun1();<br>&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure><p>关于子类继承的的关系可以看下图，例如子类继承父类用的是public方式，父类的private类型子类还是不可见的，protected和public子类可见，而且在子类中继承数据的类型也发生了改变。</p><h3 id="·多态性"><a href="#·多态性" class="headerlink" title="·多态性"></a>·多态性</h3><p>C++的多态性可以分为<strong>动态多态性</strong>和<strong>静态多态性</strong></p><ol><li><strong>动态联编</strong>（运行时多态）<br><strong>重写</strong>：同名函数相同参数裂变与返回值，只有函数的实现不同。<br><strong>实现</strong>：存在虚函数的基类，派生类必须对该虚函数进行重写。<br>虚函数的机制后期可以单开一个随笔写出来。</li><li><strong>静态联编</strong>（编译时多态）<br>函数重载：两个函数在相同的作用域，函数名相同，参数列表不同，不关心返回值。（系统会在编译的时候通过函数名与参数列表确认需要用到的具体函数是哪一个，所平常叫做编译时多态）<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">fun1</span>()</span>;<br><span class="hljs-function"><span class="hljs-built_in">float</span> <span class="hljs-title">fun1</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> a</span>)</span>;<br><span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">fun1</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> a, <span class="hljs-built_in">char</span> b</span>)</span>;<br></code></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>C++</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>C++</tag>
-      
-      <tag>三大特性</tag>
+      <tag>旧事</tag>
       
     </tags>
     
